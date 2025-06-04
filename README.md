@@ -22,6 +22,10 @@ The component exposes several Kconfig options under `BNO08X`:
 
 Adjust these in `menuconfig` to match your hardware wiring.
 
+An example `sdkconfig.defaults` is provided with these options pre-set. Copy it
+to `sdkconfig` when starting a new ESP‑IDF project or pass it via
+`idf.py --defaults sdkconfig.defaults` to apply the defaults automatically.
+
 ## Usage
 
 Include the transport header and create an instance:
