@@ -19,6 +19,7 @@ The component exposes several Kconfig options under `BNO08X`:
 - **I2C clock speed** (`BNO08X_I2C_FREQ_HZ`) – default 400 kHz
 - **Device address** (`BNO08X_I2C_ADDR`) – 0x4A or 0x4B depending on the ADR pin
 - **Timeout** (`BNO08X_I2C_TIMEOUT_MS`) – I²C transaction timeout
+- **INT GPIO** (`BNO08X_INT_GPIO`) – optional interrupt pin number (-1 to disable)
 
 Adjust these in `menuconfig` to match your hardware wiring.
 
@@ -52,6 +53,32 @@ void app_main(void)
         }
         vTaskDelay(pdMS_TO_TICKS(10));
     }
+}
+```
+
+For efficient operation connect the sensor's **INT** pin to a GPIO and set
+`CONFIG_BNO08X_INT_GPIO` accordingly. When the pin goes low call `imu.update()`
+and optionally register a callback:
+
+```cpp
+static void imu_isr(void* arg)
+{
+    auto* imu = static_cast<BNO085*>(arg);
+    imu->update();
+}
+
+void app_main(void)
+{
+    BNO08xI2CTransport transport;
+    static BNO085 imu(&transport);
+    // configure interrupt
+    gpio_set_intr_type((gpio_num_t)CONFIG_BNO08X_INT_GPIO, GPIO_INTR_NEGEDGE);
+    gpio_install_isr_service(0);
+    gpio_isr_handler_add((gpio_num_t)CONFIG_BNO08X_INT_GPIO, imu_isr, &imu);
+
+    imu.setCallback([](const SensorEvent& e) {
+        // handle events here
+    });
 }
 ```
 
