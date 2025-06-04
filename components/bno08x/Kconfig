@@ -1,0 +1,40 @@
+menuconfig BNO08X
+    bool "BNO08x IMU driver"
+    default y
+    help
+        Enable the BNO08x IMU component using the I2C transport on ESP-IDF.
+
+if BNO08X
+
+config BNO08X_I2C_PORT
+    int "I2C port"
+    range 0 1
+    default 0
+    help
+        Select which I2C controller to use.
+
+config BNO08X_I2C_SDA
+    int "SDA GPIO"
+    default 5
+
+config BNO08X_I2C_SCL
+    int "SCL GPIO"
+    default 4
+
+config BNO08X_I2C_FREQ_HZ
+    int "I2C clock speed"
+    default 400000
+    help
+        Frequency for I2C transfers.
+
+config BNO08X_I2C_ADDR
+    hex "BNO08x I2C address"
+    default 0x4A
+    help
+        7-bit address (0x4A or 0x4B depending on ADR pin).
+
+config BNO08X_I2C_TIMEOUT_MS
+    int "I2C timeout (ms)"
+    default 50
+
+endif
