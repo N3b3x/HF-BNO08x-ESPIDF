@@ -1,0 +1,3 @@
+[submodule "HF-BNO08x"]
+	path = HF-BNO08x
+	url = https://github.com/N3b3x/HF-BNO08x.git
