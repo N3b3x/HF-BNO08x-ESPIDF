@@ -37,4 +37,12 @@ config BNO08X_I2C_TIMEOUT_MS
     int "I2C timeout (ms)"
     default 50
 
+config BNO08X_INT_GPIO
+    int "INT GPIO (-1 to disable)"
+    range -1 40
+    default -1
+    help
+        Optional GPIO connected to the BNO08x INT pin. If -1, the pin is
+        ignored and the driver will poll for data.
+
 endif
