@@ -1,0 +1,11 @@
+name: N3b3x/hf-bno08x
+version: "1.0.0"
+description: Full-feature BNO08x IMU driver for ESP-IDF
+targets:
+  - esp32c6
+  - esp32
+  - esp32s3
+license: GPL-3.0-or-later
+url: https://github.com/N3b3x/HF-BNO08x-ESPIDF
+maintainers:
+  - N3b3x

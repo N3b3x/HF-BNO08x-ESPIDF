@@ -19,13 +19,9 @@ The component exposes several Kconfig options under `BNO08X`:
 - **I2C clock speed** (`BNO08X_I2C_FREQ_HZ`) – default 400 kHz
 - **Device address** (`BNO08X_I2C_ADDR`) – 0x4A or 0x4B depending on the ADR pin
 - **Timeout** (`BNO08X_I2C_TIMEOUT_MS`) – I²C transaction timeout
-- **INT GPIO** (`BNO08X_INT_GPIO`) – optional interrupt pin number (-1 to disable)
+- **INT GPIO** (`BNO08X_INT_GPIO`) – optional interrupt pin (-1 to poll)
 
 Adjust these in `menuconfig` to match your hardware wiring.
-
-An example `sdkconfig.defaults` is provided with these options pre-set. Copy it
-to `sdkconfig` when starting a new ESP‑IDF project or pass it via
-`idf.py --defaults sdkconfig.defaults` to apply the defaults automatically.
 
 ## Usage
 
@@ -89,7 +85,7 @@ submodule, so you benefit from all upstream updates.
 
 ```
 include/                # public API for transport
-esp_i2c_transport.cpp   # I²C implementation
+src/esp_i2c_transport.cpp   # I²C implementation
 CMakeLists.txt          # builds the driver and SH‑2 library
 Kconfig / Kconfig.projbuild
 README.md               # this document
